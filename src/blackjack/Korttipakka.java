@@ -19,10 +19,9 @@ public class Korttipakka {
     private ArrayList<Kortti> pakka = new ArrayList<>();
 
     /**
-     *
      * @param pakkoja on 52-kortin pakkojen määrä.
      */
-    public Korttipakka(int pakkoja){
+    public Korttipakka(int pakkoja) {
         String[] maat = new String[]{"Hertta", "Ruutu", "Pata", "Risti"};
         for (int i = 0; i < pakkoja; i++) {
             for (String maa : maat) {
@@ -34,11 +33,18 @@ public class Korttipakka {
         }
     }
 
-    public void sekoita(){
+    /**
+     * Sekoittaa korttipakat.
+     */
+    public void sekoita() {
         Collections.shuffle(this.pakka);
     }
 
-    public Kortti jaaKortti(){
+    /**
+     * Jaa pakasta
+     * @return kortti.
+     */
+    public Kortti jaaKortti() {
         Kortti ret = pakka.get(0);
         pakka.remove(0);
         return ret;
