@@ -26,9 +26,8 @@ import java.util.ArrayList;
  */
 public class PelaajanKasi {
 
-    ArrayList<Kortti> kortit = new ArrayList<>();
-
-    public void Kortti
+    private ArrayList<Kortti> kortit = new ArrayList<>();
+    private int montakoAssaaMuutettuYkkoseksi = 0;
 
     otaKortti(Kortti kortti) {
         kortit.add(kortti);
@@ -47,19 +46,26 @@ public class PelaajanKasi {
         return (kortti.getArvo() >= 10 && kortti.getArvo() <= 13) ^ (kortti2.getArvo() >= 10 && kortti2.getArvo() <= 13);
     }
 
+    private int montakoAssaaKadessa(){
+        int ret = 0;
+        for (Kortti kortti : this.kortit) {
+            if (kortti.getArvo() == 1) // Ässä
+                ret += 1;
+        }
+    }
+
     public int selvitaSumma() {
         int summa = 0;
-        for (kortti:
-             this.kortit) {
+        for (kortti: this.kortit) {
             if (kortti.getArvo() >= 2 && kortti.getArvo() <= 10)
                 summa += kortti.getArvo();
             else if (kortti.getArvo() >= 11 && kortti.getArvo() <= 13)
                 summa += 10;
             else
                 summa += 11;
-            if (kortti.getArvo() > 21)
+            if (summa > 21 && this.montakoAssaaMuutettuYkkoseksi < this.montakoAssaaKadessa())
                 summa -= 10;
         }
-
+        return summa;
     }
 }
