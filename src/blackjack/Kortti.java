@@ -10,8 +10,8 @@ package blackjack;
  */
 public class Kortti {
 
-    private int arvo;
-    private String maa;
+    private int arvo = -1;
+    private String maa = "NONE";
 
     public int getArvo() {
         return arvo;
