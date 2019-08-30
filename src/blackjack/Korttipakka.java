@@ -25,7 +25,7 @@ public class Korttipakka {
         String[] maat = new String[]{"Hertta", "Ruutu", "Pata", "Risti"};
         for (int i = 0; i < pakkoja; i++) {
             for (String maa : maat) {
-                for (int j = 2; j <= 14; j++) {
+                for (int j = 1; j <= 13; j++) {
                     Kortti kortti = new Kortti(j, maa);
                     this.pakka.add(kortti);
                 }
