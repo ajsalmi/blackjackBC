@@ -29,7 +29,7 @@ public class PelaajanKasi {
     private ArrayList<Kortti> kortit = new ArrayList<>();
     private int montakoAssaaMuutettuYkkoseksi = 0;
 
-    otaKortti(Kortti kortti) {
+    public void otaKortti(Kortti kortti) {
         kortit.add(kortti);
     }
 
@@ -52,11 +52,13 @@ public class PelaajanKasi {
             if (kortti.getArvo() == 1) // Ässä
                 ret += 1;
         }
+
+        return ret;
     }
 
     public int selvitaSumma() {
         int summa = 0;
-        for (kortti: this.kortit) {
+        for (Kortti kortti: this.kortit) {
             if (kortti.getArvo() >= 2 && kortti.getArvo() <= 10)
                 summa += kortti.getArvo();
             else if (kortti.getArvo() >= 11 && kortti.getArvo() <= 13)
@@ -67,5 +69,14 @@ public class PelaajanKasi {
                 summa -= 10;
         }
         return summa;
+    }
+
+    @Override
+    public String toString() {
+        String ret = "";
+        for(Kortti kortti : this.kortit)
+            ret += kortti + ", ";
+        ret += "Summa: " + this.selvitaSumma();
+        return ret;
     }
 }

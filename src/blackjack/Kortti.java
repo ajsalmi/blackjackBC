@@ -13,6 +13,11 @@ public class Kortti {
     private int arvo = -1;
     private String maa = "NONE";
 
+    public Kortti(int arvo, String maa) {
+        this.arvo = arvo;
+        this.maa = maa;
+    }
+
     public int getArvo() {
         return arvo;
     }
