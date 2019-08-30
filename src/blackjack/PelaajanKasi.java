@@ -46,29 +46,18 @@ public class PelaajanKasi {
         return (kortti.getArvo() >= 10 && kortti.getArvo() <= 13) ^ (kortti2.getArvo() >= 10 && kortti2.getArvo() <= 13);
     }
 
-    private int montakoAssaaKadessa(){
-        int ret = 0;
-        for (Kortti kortti : this.kortit) {
-            if (kortti.getArvo() == 1) // Ässä
-                ret += 1;
-        }
-
-        return ret;
-    }
 
     public int selvitaSumma() {
         int summa = 0;
-        boolean assiaMuutettu = false;
         for(Kortti kortti: this.kortit) {
             if (kortti.getArvo() >= 2 && kortti.getArvo() <= 10)
                 summa += kortti.getArvo();
             else if (kortti.getArvo() >= 11 && kortti.getArvo() <= 13)
                 summa += 10;
-            else
+            else {
                 summa += 11;
-            if(assiaMuutettu == false && summa > 21) {
-                summa -= 10;
-                assiaMuutettu = true;
+                if(summa > 21)
+                    summa -= 10;
             }
         }
         return summa;
