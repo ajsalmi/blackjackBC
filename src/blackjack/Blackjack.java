@@ -21,9 +21,10 @@ public class Blackjack {
         emanta.otaKortti(pakka.jaaKortti());
 
         String lisaako;
+        // Pelaajan korttien veto.
         while (true) {
-            System.out.println(emanta);
-            System.out.println(pelaaja);
+            System.out.println("Emäntä: " + emanta);
+            System.out.println("Pelaaja: " + pelaaja);
             System.out.print("Otetaanko lisäkortti? (k/e) ");
             lisaako = lukija.nextLine();
             if(lisaako.startsWith("k")){
@@ -31,8 +32,42 @@ public class Blackjack {
             }
             else
                 break;
-            if()
+            if(pelaaja.selvitaSumma() > 21) {
+                System.out.println(pelaaja);
+                break;
+            }
         }
+
+        // Emännän korttien veto.
+        while(true){
+            System.out.println(emanta);
+            if(pelaaja.selvitaSumma() > 21)
+                break;
+            //else if(pelaaja.selvitaSumma() > emanta.selvitaSumma()){
+            else if(15 > emanta.selvitaSumma()){
+                emanta.otaKortti(pakka.jaaKortti());
+                System.out.println(emanta);
+            }
+            else
+                break;
+        }
+
+        // Loppuyhteenweto.
+        System.out.println("Emäntä: " + emanta);
+        System.out.println("Pelaaja: " + pelaaja);
+        //String voittaja = emanta.selvitaSumma() > 21 ? "Pelaaja" : "Emäntä";
+        String voittaja;
+        if(pelaaja.selvitaSumma() > 21)
+            voittaja = "Emäntä";
+        else if(emanta.selvitaSumma() > 21)
+            voittaja = "Pelaaja";
+        else if(emanta.selvitaSumma() >= pelaaja.selvitaSumma())
+            voittaja = "Emäntä";
+        else
+            voittaja = "Pelaaja";
+
+        System.out.println("Voittaja on " + voittaja);
+
 
         System.out.println("Jenni was here!");
         //

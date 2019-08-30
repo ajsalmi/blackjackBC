@@ -58,15 +58,18 @@ public class PelaajanKasi {
 
     public int selvitaSumma() {
         int summa = 0;
-        for (Kortti kortti: this.kortit) {
+        boolean assiaMuutettu = false;
+        for(Kortti kortti: this.kortit) {
             if (kortti.getArvo() >= 2 && kortti.getArvo() <= 10)
                 summa += kortti.getArvo();
             else if (kortti.getArvo() >= 11 && kortti.getArvo() <= 13)
                 summa += 10;
             else
                 summa += 11;
-            if (summa > 21 && this.montakoAssaaMuutettuYkkoseksi < this.montakoAssaaKadessa())
+            if(assiaMuutettu == false && summa > 21) {
                 summa -= 10;
+                assiaMuutettu = true;
+            }
         }
         return summa;
     }
