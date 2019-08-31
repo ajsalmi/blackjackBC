@@ -1,3 +1,10 @@
+/* TODO: Härveli ei tunnista käyttäjää voittajaksi blackjackin sattuessa.
+ */
+/* TODO: Tietsikka ei osaa lopettaa, vaikka pelaaja lopettaisi pienemmällä arvolla kuin emäntä.
+ */
+/* TODO: Siirtää voittajan määrittävä toiminnallisuus Pelaa-luokkaan.
+ */
+
 package blackjack;
 
 import javafx.application.Application;
@@ -13,52 +20,59 @@ public class BlackjackGui extends Application {
     public void start(Stage primaryStage) {
         // Ladonta
         VBox juuri = new VBox();
-        HBox emanta = new HBox();
-        HBox pelaaja = new HBox();
-        HBox nappulat = new HBox();
-        juuri.getChildren().add(emanta);
-        juuri.getChildren().add(pelaaja);
-        juuri.getChildren().add(nappulat);
+        HBox emannanHBox = new HBox();
+        HBox pelaajanHBox = new HBox();
+        HBox nappuloidenHBox = new HBox();
+        juuri.getChildren().add(emannanHBox);
+        juuri.getChildren().add(pelaajanHBox);
+        juuri.getChildren().add(nappuloidenHBox);
 
         // Nappulat ja tekstikentät.
-        Label emantaLabel = new Label("Emännän käsi: ");
-        Label emantaKasi = new Label("-");
-        emanta.getChildren().add(emantaLabel);
-        emanta.getChildren().add(emantaKasi);
-        Label pelaajaLabel = new Label("Pelaajan käsi: ");
-        Label pelaajaKasi = new Label("-");
-        pelaaja.getChildren().add(pelaajaLabel);
-        pelaaja.getChildren().add(pelaajaKasi);
+        Label emannanSeliteLabel = new Label("Emännän käsi: ");
+        Label emannanKasiLabel = new Label("-");
+        emannanHBox.getChildren().add(emannanSeliteLabel);
+        emannanHBox.getChildren().add(emannanKasiLabel);
+        Label pelaajanSeliteLabel = new Label("Pelaajan käsi: ");
+        Label pelaajanKasiLabel = new Label("-");
+        pelaajanHBox.getChildren().add(pelaajanSeliteLabel);
+        pelaajanHBox.getChildren().add(pelaajanKasiLabel);
         Button jata = new Button("Jätä");
         Button lisaa = new Button("Lisää");
         Button uusiPeli = new Button("Uusi peli");
-        nappulat.getChildren().add(jata);
-        nappulat.getChildren().add(lisaa);
-        nappulat.getChildren().add(uusiPeli);
+        nappuloidenHBox.getChildren().add(jata);
+        nappuloidenHBox.getChildren().add(lisaa);
+        nappuloidenHBox.getChildren().add(uusiPeli);
 
         // Pelaa-objekti, sekä nappuloiden toiminta.
         Pelaa peli = new Pelaa();
-        primaryStage.setTitle("Blackjack!");
+        primaryStage.setTitle("");
         jata.setOnAction(event -> {
-            emantaKasi.setText(peli.jata().toString());
+            emannanKasiLabel.setText(peli.jata().toString());
             primaryStage.setTitle("Voittaja on " + (peli.getVoittaja().equals(peli.getEmanta()) ?
                     " emäntä!" :
                     " pelaaja!"));
         });
         lisaa.setOnAction(event -> {
-            if (peli.getPelaaja().selvitaSumma() <= 21)
-                pelaajaKasi.setText(peli.lisaa().toString());
+            PelaajanKasi pelaaja = peli.getPelaaja();
+            if (pelaaja.selvitaSumma() <= 20){
+                pelaajanKasiLabel.setText(peli.lisaa().toString());
+                if(pelaaja.onkoBlackjack()){ // todo: Tämä if ei triggeröidy?
+                    primaryStage.setTitle("Sait blackjackin. Pelaaja on voittaja.");
+                }
+            }
+            else if (peli.getPelaaja().selvitaSumma() == 21)
+                primaryStage.setTitle("Haluatko hävitä?");
             if (peli.getPelaaja().selvitaSumma() > 21) {
-                pelaajaKasi.setText(pelaajaKasi.getText() + (pelaajaKasi.getText().contains("YLI")
+                pelaajanKasiLabel.setText(pelaajanKasiLabel.getText() + (pelaajanKasiLabel.getText().contains("YLI")
                         ? "" : " -- YLI MENI!"));
                 primaryStage.setTitle("Voittaja on emäntä!");
             }
         });
         uusiPeli.setOnAction(event -> {
             peli.alusta();
-            primaryStage.setTitle("Blackjack!");
-            emantaKasi.setText(peli.getEmanta().toString());
-            pelaajaKasi.setText(peli.getPelaaja().toString());
+            primaryStage.setTitle("");
+            emannanKasiLabel.setText(peli.getEmanta().toString());
+            pelaajanKasiLabel.setText(peli.getPelaaja().toString());
         });
         primaryStage.setScene(new Scene(juuri, 400, 80));
         primaryStage.show();

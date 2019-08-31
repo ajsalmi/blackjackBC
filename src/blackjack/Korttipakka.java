@@ -22,6 +22,13 @@ public class Korttipakka {
      * @param pakkoja on 52-kortin pakkojen määrä.
      */
     public Korttipakka(int pakkoja) {
+        pakka.add(new Kortti(7, "Ruutu"));
+        pakka.add(new Kortti(1, "Ruutu"));
+        pakka.add(new Kortti(10, "Ruutu"));
+        pakka.add(new Kortti(10, "Ruutu"));
+        pakka.add(new Kortti(7, "Ruutu"));
+        pakka.add(new Kortti(10, "Ruutu"));
+        /* todo: pois-kommentoi
         String[] maat = new String[]{"Hertta", "Ruutu", "Pata", "Risti"};
         for (int i = 0; i < pakkoja; i++) {
             for (String maa : maat) {
@@ -31,13 +38,14 @@ public class Korttipakka {
                 }
             }
         }
+         */
     }
 
     /**
      * Sekoittaa korttipakat.
      */
     public void sekoita() {
-        Collections.shuffle(this.pakka);
+        //Collections.shuffle(this.pakka); // todo: pois kommentoi
     }
 
     /**
