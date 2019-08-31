@@ -1,13 +1,10 @@
 package blackjack;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -24,23 +21,36 @@ public class BlackjackGui extends Application {
         juuri.getChildren().add(nappulat);
 
         // Nappulat ja tekstikentät.
-        Label emantaLabel = new Label("Emännän käsi");
+        Label emantaLabel = new Label("Emännän käsi: ");
+        Label emantaKasi = new Label("-");
         emanta.getChildren().add(emantaLabel);
-        Label pelaajaLabel = new Label("Pelaajan käsi");
+        emanta.getChildren().add(emantaKasi);
+        Label pelaajaLabel = new Label("Pelaajan käsi: ");
+        Label pelaajaKasi = new Label("-");
         pelaaja.getChildren().add(pelaajaLabel);
+        pelaaja.getChildren().add(pelaajaKasi);
         Button jata = new Button("Jätä");
         Button lisaa = new Button("Lisää");
+        Button uusiPeli = new Button("Uusi peli");
         nappulat.getChildren().add(jata);
         nappulat.getChildren().add(lisaa);
+        nappulat.getChildren().add(uusiPeli);
 
+        // Pelaa-objekti, sekä nappuloiden toiminta.
+        Pelaa peli = new Pelaa();
         primaryStage.setTitle("Blackjack!");
-        jata.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
+        jata.setOnAction(event -> {
+            emantaKasi.setText(peli.jata().toString());
         });
-        primaryStage.setScene(new Scene(juuri, 300, 250));
+        lisaa.setOnAction(event -> {
+            pelaajaKasi.setText(peli.lisaa().toString());
+        });
+        uusiPeli.setOnAction(event -> {
+            peli.alusta();
+            emantaKasi.setText(peli.getEmanta().toString());
+            pelaajaKasi.setText(peli.getPelaaja().toString());
+        });
+        primaryStage.setScene(new Scene(juuri, 400, 80));
         primaryStage.show();
     }
 

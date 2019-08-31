@@ -74,5 +74,4 @@ public class Blackjack {
 
         System.out.println("Voittaja on " + voittaja);
     }
-    
 }
