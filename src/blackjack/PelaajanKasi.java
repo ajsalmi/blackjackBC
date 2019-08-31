@@ -19,6 +19,7 @@
 package blackjack;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /*
  *
@@ -70,5 +71,23 @@ public class PelaajanKasi {
             ret += kortti + ", ";
         ret += "Summa: " + this.selvitaSumma();
         return ret;
+    }
+
+    /**
+     * Palauttaa tosi, jos käsien arvo on yhtäsuuri. Kädessä olevien korttien ei tarvitse olla
+     * samoja.
+     * @param obj
+     * @return boolean
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof PelaajanKasi))
+            return false;
+        PelaajanKasi toinenKasi = (PelaajanKasi) obj;
+        if(this.selvitaSumma() == toinenKasi.selvitaSumma())
+            return true;
+        return false;
     }
 }

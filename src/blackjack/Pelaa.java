@@ -1,19 +1,3 @@
-/*
-Pelaa
-        alusta()    -- Alustaa tarvittavat muuttuja ja tekee muut aloitustoimet. Pitää toimia jo
-                       alustettuun objektiin, resetoiden sen alkutilaan.
-
-        pelaaja     -- Palauttaa PelaajanKasi-objektin tekstiesityksen tulostamista varten.
-
-        emanta      -- Palauttaa PelaajanKasi-objektin tekstiesityksen tulostamista varten.
-
-        lisaa       -- Ottaa pelaajan käteen kortin, ja palauttaa PelaajanKasi-objektin.
-
-        jata        -- Ottaa emännälle ehtojen mukaan kortteja, ja arvioi voittajan. Voittanut
-                       PelaajanKasi-objekti palautetaan tulostamista varten.
-
-*/
-
 package blackjack;
 
 public class Pelaa {
@@ -77,5 +61,16 @@ public class Pelaa {
                     break;
             }
         }
+    }
+
+    public PelaajanKasi getVoittaja() {
+        if(this.pelaaja.selvitaSumma() > 21)
+            return this.emanta;
+        else if(emanta.selvitaSumma() > 21)
+            return this.pelaaja;
+        else if(emanta.selvitaSumma() >= pelaaja.selvitaSumma())
+            return this.emanta;
+        else
+            return this.pelaaja;
     }
 }
