@@ -8,9 +8,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-// TODO: häkkyrä ei tunnista uutta korttia otettaessa meneekö summa yli 21, ja lopeta peliä.
-
-
 public class BlackjackGui extends Application {
     @Override
     public void start(Stage primaryStage) {
@@ -45,11 +42,17 @@ public class BlackjackGui extends Application {
         jata.setOnAction(event -> {
             emantaKasi.setText(peli.jata().toString());
             primaryStage.setTitle("Voittaja on " + (peli.getVoittaja().equals(peli.getEmanta()) ?
-                    " Emäntä!" :
-                    " Pelaaja!"));
+                    " emäntä!" :
+                    " pelaaja!"));
         });
         lisaa.setOnAction(event -> {
-            pelaajaKasi.setText(peli.lisaa().toString());
+            if (peli.getPelaaja().selvitaSumma() <= 21)
+                pelaajaKasi.setText(peli.lisaa().toString());
+            if (peli.getPelaaja().selvitaSumma() > 21) {
+                pelaajaKasi.setText(pelaajaKasi.getText() + (pelaajaKasi.getText().contains("YLI")
+                        ? "" : " -- YLI MENI!"));
+                primaryStage.setTitle("Voittaja on emäntä!");
+            }
         });
         uusiPeli.setOnAction(event -> {
             peli.alusta();
