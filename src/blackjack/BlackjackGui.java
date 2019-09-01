@@ -1,7 +1,3 @@
-/* TODO: Härveli ei tunnista käyttäjää voittajaksi blackjackin sattuessa.
- */
-/* TODO: Tietsikka ei osaa lopettaa, vaikka pelaaja lopettaisi pienemmällä arvolla kuin emäntä.
- */
 /* TODO: Siirtää voittajan määrittävä toiminnallisuus Pelaa-luokkaan.
  */
 
@@ -56,9 +52,6 @@ public class BlackjackGui extends Application {
             PelaajanKasi pelaaja = peli.getPelaaja();
             if (pelaaja.selvitaSumma() <= 20){
                 pelaajanKasiLabel.setText(peli.lisaa().toString());
-                if(pelaaja.onkoBlackjack()){ // todo: Tämä if ei triggeröidy?
-                    primaryStage.setTitle("Sait blackjackin. Pelaaja on voittaja.");
-                }
             }
             else if (peli.getPelaaja().selvitaSumma() == 21)
                 primaryStage.setTitle("Haluatko hävitä?");
@@ -73,8 +66,11 @@ public class BlackjackGui extends Application {
             primaryStage.setTitle("");
             emannanKasiLabel.setText(peli.getEmanta().toString());
             pelaajanKasiLabel.setText(peli.getPelaaja().toString());
+            if(peli.getPelaaja().onkoBlackjack())
+                primaryStage.setTitle("BLACKJACK! Voittaja on pelaaja!");
         });
         primaryStage.setScene(new Scene(juuri, 400, 80));
+
         primaryStage.show();
     }
 

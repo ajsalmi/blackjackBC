@@ -6,7 +6,6 @@ public class Pelaa {
     private PelaajanKasi pelaaja = new PelaajanKasi();
     private PelaajanKasi emanta = new PelaajanKasi();
     private boolean alustettu = false;
-    private boolean jatetty = false;  // Voittajan arviointia varten.
 
     public PelaajanKasi getPelaaja() {
         return pelaaja;
@@ -55,6 +54,8 @@ public class Pelaa {
             while (true) {
                 if (this.pelaaja.selvitaSumma() > 21)
                     break;
+                else if(pelaaja.selvitaSumma() < emanta.selvitaSumma())
+                    break;
                 else if (15 > this.emanta.selvitaSumma()) {
                     this.emanta.otaKortti(this.pakka.jaaKortti());
                 } else
@@ -63,6 +64,10 @@ public class Pelaa {
         }
     }
 
+    /**
+     * Määrittää onko voittajaa, ja kumpi on voittaja.
+     * @return null kun peli on kesken. PelaajanKäsi muussa tapauksessa.
+     */
     public PelaajanKasi getVoittaja() {
         if(this.pelaaja.selvitaSumma() > 21)
             return this.emanta;
@@ -73,4 +78,5 @@ public class Pelaa {
         else
             return this.pelaaja;
     }
+
 }
